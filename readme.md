@@ -21,7 +21,7 @@
 You can install **VDF** through the command line by using the following command:
 
 ```
-yarn add @node-steam/vdf
+npm install @node-steam/vdf
 ```
 
 ## Usage:
@@ -151,25 +151,25 @@ Interested in contributing to **VDF**? Contributions are welcome, and are accept
 **Installing dependencies:**
 
 ```
-yarn
+npm install
 ```
 
 **Compile:**
 
 ```
-yarn compile
+npm run compile
 ```
 
 **Test:**
 
 ```
-yarn test
+npm run test
 ```
 
 **Generate Docs:**
 
 ```
-yarn docs
+npm run docs
 ```
 
 ## Tests:
@@ -177,4 +177,4 @@ yarn docs
 This module is thoroughly tested with **[ava](https://github.com/avajs/ava)**
 
 ## License:
-Code licensed under [MIT](license.md), documentation under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).
+Code licensed under [MIT](license), documentation under [CC BY 3.0](https://creativecommons.org/licenses/by/3.0/).

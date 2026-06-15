@@ -1,6 +1,6 @@
 {
   "name": "@node-steam/vdf",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Module to convert Valve's KeyValue format to JSON and back",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
@@ -37,11 +37,11 @@
   },
   "license": "MIT",
   "scripts": {
-    "compile": "tsc -p .",
-    "test": "yarn compile && TS_NODE_PROJECT=test/tsconfig.json ava",
-    "lint": "tslint -c tslint.json 'src/**/*.ts'",
-    "docs": "typedoc src/index.ts",
-    "prepublish": "yarn lint && yarn test && yarn docs"
+    "compile": "npx tsc -p ./tsconfig.json",
+    "test": "npm run compile && npx ava",
+    "lint": "npx tslint -c tslint.json 'src/**/*.ts'",
+    "docs": "npx typedoc src/index.ts",
+    "prepublish": "npm run lint && npm run test && npm run docs"
   },
   "ava": {
     "files": [
@@ -55,15 +55,11 @@
     "powerAssert": false,
     "extensions": [
       "ts"
-    ],
-    "require": [
-      "ts-node/register",
-      "tsconfig-paths/register"
     ]
   },
   "devDependencies": {
     "@types/node": "^15",
-    "ava": "^3",
+    "ava": "^6.4.1",
     "ts-node": "^10",
     "tsconfig-paths": "^3",
     "typescript": "^4"

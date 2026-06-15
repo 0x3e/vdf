@@ -1,10 +1,8 @@
 {
     "extends": "../tsconfig.json",
     "compilerOptions": {
-        "baseUrl": "../",
         "module": "commonjs",
         "noEmit": true,
-        "moduleResolution": "node",
         "target": "es2016",
         "lib": [
             "es2017",

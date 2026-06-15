@@ -3,7 +3,7 @@ import test from 'ava';
 import {
     parse,
     stringify,
-} from 'lib';
+} from '../lib/index.js';
 
 const string =
 `"description"		"This is a example object!"
