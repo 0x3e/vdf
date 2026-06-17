@@ -1,5 +1,5 @@
+import Ajv from "ajv"
 import * as vdf from "../lib/node-steam-vdf.mjs"
-import {coercer} from "../lib/ofcoerce.mjs"
 
 export function parse(text, options = {}) {
   let parsed_text = {}
@@ -9,16 +9,20 @@ export function parse(text, options = {}) {
   else if (options.parser === "little_better")
     return little_better(parsed_text)
   else if (options.parser === "string_only") return parsed_text
-  else if (options.parser === "coerce") return coerce(parsed_text, options)
+  else if (options.parser === "json_schema_coerce")
+    return json_schema_coerce(parsed_text, options)
   else return node_steam_vdf(parsed_text)
 }
 
-function coerce(parsed_text, options) {
-  const c = coercer( $ => options.type)
-	console.log('coercer:',c)
-	console.log('parsed_text:',parsed_text)
+function json_schema_coerce(parsed_text, options) {
+  const ajv = new Ajv({coerceTypes: true})
+  console.log("parsed_text:", parsed_text)
 
-	return c(parsed_text)
+  const validate = ajv.compile(options.schema)
+  validate(parsed_text)
+  parsed_text.errors = validate.errors
+
+  return parsed_text
 }
 
 function cbartondock_vdf(ob) {

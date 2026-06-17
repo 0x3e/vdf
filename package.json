@@ -44,7 +44,7 @@
     "prepublish": "npm run lint && npm run compile && npm run test && npm run docs"
   },
   "dependencies": {
-    "@node-steam/vdf": "https://github.com/cbartondock/vdf.git#tracklib"
+    "ajv": "^8.20.0"
   },
   "devDependencies": {
     "@biomejs/biome": "2.4.16"
