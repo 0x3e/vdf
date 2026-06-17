@@ -1,0 +1,10 @@
+{
+  "infinity": {
+    "id": 1e1000,
+    "caption": "string infinity"
+  },
+  "neg_infinity": {
+    "here": -1e1000,
+    "is": "string negative infinity"
+  }
+}

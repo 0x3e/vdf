@@ -1,0 +1,20 @@
+"neg_int0"
+{
+	"data"		"-9007199254740992"
+	"caption"		"js min"
+}
+"neg_int1"
+{
+	"data"		"-9007199254740993"
+	"caption"		"under js min"
+}
+"neg_int2"
+{
+	"data"		"-9223372036854775808"
+	"caption"		"int64 min"
+}
+"neg_int3"
+{
+	"data"		"-9223372036854775809"
+	"caption"		"int64 min2"
+}

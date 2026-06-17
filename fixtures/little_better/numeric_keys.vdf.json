@@ -1,0 +1,12 @@
+{
+  "numeric": {
+    "keys": {
+      "0": "zero",
+      "1": "one",
+      "01": "leading",
+      "001": "doubleleading",
+      "-1": "negative",
+      "+1": "positive"
+    }
+  }
+}

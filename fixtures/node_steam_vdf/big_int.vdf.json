@@ -1,0 +1,18 @@
+{
+  "big_int": {
+    "data": 9007199254740991,
+    "caption": "max safe integer"
+  },
+  "precision": {
+    "data": 9007199254740992,
+    "caption": "precision loss"
+  },
+  "uint64_max": {
+    "data": 18446744073709552000,
+    "caption": "uint64 max"
+  },
+  "int64_max": {
+    "data": 9223372036854776000,
+    "caption": "int64 max"
+  }
+}

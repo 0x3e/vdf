@@ -1,8 +1,9 @@
 {
-  "name": "@node-steam/vdf",
+  "name": "0x3e-vdf",
   "version": "2.2.1",
   "description": "Module to convert Valve's KeyValue format to JSON and back",
-  "main": "lib/index.js",
+  "exports": "./lib/index.mjs",
+  "type": "module",
   "types": "lib/index.d.ts",
   "homepage": "https://github.com/node-steam/vdf",
   "bugs": "https://github.com/node-steam/vdf/issues",
@@ -15,7 +16,6 @@
     "steam",
     "valve",
     "vdf",
-    "typescript",
     "es6",
     "es7"
   ],
@@ -33,35 +33,20 @@
   ],
   "runkitExampleFilename": "example/runkit.js",
   "engines": {
-    "node": ">=8.0.0"
+    "node": ">=22.0.0"
   },
   "license": "MIT",
   "scripts": {
-    "compile": "npx tsc -p ./tsconfig.json",
-    "test": "npm run compile && npx ava",
-    "lint": "npx tslint -c tslint.json 'src/**/*.ts'",
-    "docs": "npx typedoc src/index.ts",
-    "prepublish": "npm run lint && npm run test && npm run docs"
+    "lint": "npx @biomejs/biome check",
+    "compile": "cp src/index.mjs src/index.d.ts lib/ #",
+    "test": "node --test test/*.test.js",
+    "docs": "echo 'WIP'",
+    "prepublish": "npm run lint && npm run compile && npm run test && npm run docs"
   },
-  "ava": {
-    "files": [
-      "test/*.ts",
-      "test/**/*.ts"
-    ],
-    "concurrency": 10,
-    "verbose": true,
-    "failFast": true,
-    "failWithoutAssertions": false,
-    "powerAssert": false,
-    "extensions": [
-      "ts"
-    ]
+  "dependencies": {
+    "@node-steam/vdf": "https://github.com/cbartondock/vdf.git#tracklib"
   },
   "devDependencies": {
-    "@types/node": "^15",
-    "ava": "^6.4.1",
-    "ts-node": "^10",
-    "tsconfig-paths": "^3",
-    "typescript": "^4"
+    "@biomejs/biome": "2.4.16"
   }
 }

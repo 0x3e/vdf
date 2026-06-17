@@ -1,0 +1,14 @@
+{
+  "nested": {
+    "nesting": {
+      "deep": {
+        "deeper": {
+          "deepest": {
+            "value1": "better be strings",
+            "value2": "strings in here"
+          }
+        }
+      }
+    }
+  }
+}
