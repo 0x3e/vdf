@@ -1,0 +1,80 @@
+--- ../test_steam_parse/node_modules/orig-node-steam-vdf/lib/index.js
++++ src/index.cjs
+@@ -1,7 +1,29 @@
+ "use strict";
+ Object.defineProperty(exports, "__esModule", { value: true });
+ exports.stringify = exports.parse = void 0;
+-const parse = (text) => {
++const parse = (text, options = {}) => {
++  let parsed_text = {}
++  parsed_text = _parse(text)
++
++  if (typeof options.coercer === "function")
++    return do_parser_function(parsed_text, options)
++  else return node_steam_vdf(parsed_text)
++}
++
++function node_steam_vdf(ob) {
++  recurse_mangle(ob, (k, val) => {
++    if (val !== "" && !Number.isNaN(+val)) val = +val
++    else if (val === "true") val = true
++    else if (val === "false") val = false
++    else if (val === "null") val = null
++    else if (val === "undefined") val = undefined
++
++    return {k: k, v: val}
++  })
++
++  return ob
++}
++const _parse = (text) => {
+     if (typeof text !== 'string') {
+         throw new TypeError('VDF | Parse: Expecting parameter to be a string');
+     }
+@@ -65,16 +87,6 @@
+                     line += '\n' + lines[++i];
+                     continue;
+                 }
+-                if (val !== '' && !isNaN(val))
+-                    val = +val;
+-                if (val === 'true')
+-                    val = true;
+-                if (val === 'false')
+-                    val = false;
+-                if (val === 'null')
+-                    val = null;
+-                if (val === 'undefined')
+-                    val = undefined;
+                 stack[stack.length - 1][key] = val;
+             }
+             break;
+@@ -112,3 +124,29 @@
+     }
+     return result;
+ };
++
++function do_parser_function(parsed_text, options) {
++  const fun = options.coercer
++  if (options.mangle) {
++    recurse_mangle(parsed_text, fun)
++    return parsed_text
++  }
++
++  return fun(parsed_text)
++}
++
++
++function recurse_mangle(ob, fn) {
++  Object.keys(ob).forEach(k => {
++    if (ob[k] !== null && typeof ob[k] === "object") {
++      const mangled = fn(k, ob[k])
++      recurse_mangle(ob[k], fn)
++      ob[mangled.k] = ob[k]
++      if (k !== mangled.k) delete ob[k]
++    } else {
++      const mangled = fn(k, ob[k])
++      if (k !== mangled.k) delete ob[k]
++      ob[mangled.k] = mangled.v
++    }
++  })
++}

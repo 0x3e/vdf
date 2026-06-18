@@ -75,7 +75,7 @@ const ajv = new Ajv({coerceTypes: true, removeAdditional: true})
 
 const validate = ajv.compile(json_schema)
 const modify = json_in => [json_in, validate(json_in)]
-const result = vdf.parse(string, {parser: modify})
+const result = vdf.parse(string, {coercer: modify})
 
 console.log(result[0])
 console.log(result[1])

@@ -5,7 +5,7 @@ const parse = (text, options = {}) => {
   let parsed_text = {}
   parsed_text = _parse(text)
 
-  if (typeof options.parser === "function")
+  if (typeof options.coercer === "function")
     return do_parser_function(parsed_text, options)
   else return node_steam_vdf(parsed_text)
 }
@@ -126,7 +126,7 @@ const create = (object, level = 0) => {
 };
 
 function do_parser_function(parsed_text, options) {
-  const fun = options.parser
+  const fun = options.coercer
   if (options.mangle) {
     recurse_mangle(parsed_text, fun)
     return parsed_text

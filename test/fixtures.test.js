@@ -11,11 +11,11 @@ const dir_names = [
   "string_only",
 ]
 const options = {
-  strings: {parser: strings => strings},
+  strings: {coercer: strings => strings},
   node_steam_vdf: {},
   little_better: {
     mangle: true,
-    parser: (k, v) => {
+    coercer: (k, v) => {
       if (+v === Number.POSITIVE_INFINITY) v = String(v)
       else if (+v === Number.NEGATIVE_INFINITY) v = String(v)
       else if (v !== "" && !Number.isNaN(v) && String(+v) === v) v = +v
@@ -29,7 +29,7 @@ const options = {
   },
   cbartondock_vdf: {
     mangle: true,
-    parser: (k, val) => {
+    coercer: (k, val) => {
       if (val !== "" && !Number.isNaN(+val) && String(+val) === val)
         val = +val
       else if (val === "true") val = true
