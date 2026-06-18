@@ -1,4 +1,5 @@
-import * as vdf from "../lib/index.mjs"
+import Ajv from "ajv"
+import * as vdf from "../lib/index.cjs"
 
 //import {describe, eq, it, pDSEq} from "../test/test.mjs"
 
@@ -39,18 +40,23 @@ const json_schema = {
             },
             RememberPassword: {
               type: "integer",
+              enum: [0, 1],
             },
             WantsOfflineMode: {
               type: "integer",
+              enum: [0, 1],
             },
             SkipOfflineModeWarning: {
               type: "integer",
+              enum: [0, 1],
             },
             AllowAutoLogin: {
               type: "integer",
+              enum: [0, 1],
             },
             MostRecent: {
               type: "integer",
+              enum: [0, 1],
             },
             Timestamp: {
               type: "string",
@@ -65,9 +71,11 @@ const json_schema = {
   additionalProperties: false,
 }
 
-const result = vdf.parse(string, {
-  parser: "json_schema_coerce",
-  schema: json_schema,
-})
+const ajv = new Ajv({coerceTypes: true, removeAdditional: true})
 
-console.log(result)
+const validate = ajv.compile(json_schema)
+const modify = json_in => [json_in, validate(json_in)]
+const result = vdf.parse(string, {parser: modify})
+
+console.log(result[0])
+console.log(result[1])

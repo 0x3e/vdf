@@ -38,15 +38,15 @@
   "license": "MIT",
   "scripts": {
     "lint": "npx @biomejs/biome check",
-    "compile": "cp src/index.mjs src/index.d.ts lib/ #",
+    "compile": "cp src/index.cjs src/index.d.ts lib/ #",
     "test": "node --test test/*.test.js",
     "docs": "echo 'WIP'",
     "prepublish": "npm run lint && npm run compile && npm run test && npm run docs"
   },
   "dependencies": {
-    "ajv": "^8.20.0"
   },
   "devDependencies": {
-    "@biomejs/biome": "2.4.16"
+    "@biomejs/biome": "2.4.16",
+    "ajv": "^8.20.0"
   }
 }

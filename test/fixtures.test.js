@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import path from "node:path"
-import * as vdf from "../lib/index.mjs"
+import * as vdf from "../lib/index.cjs"
 import {describe, eq, it, pDSEq} from "../test/test.mjs"
 
 const fix_dir = "fixtures"
@@ -11,10 +11,35 @@ const dir_names = [
   "string_only",
 ]
 const options = {
+  strings: {parser: strings => strings},
   node_steam_vdf: {},
-  little_better: {parser: "little_better"},
-  cbartondock_vdf: {parser: "cbartondock_vdf"},
-  string_only: {parser: "string_only"},
+  little_better: {
+    mangle: true,
+    parser: (k, v) => {
+      if (+v === Number.POSITIVE_INFINITY) v = String(v)
+      else if (+v === Number.NEGATIVE_INFINITY) v = String(v)
+      else if (v !== "" && !Number.isNaN(v) && String(+v) === v) v = +v
+      else if (v === "true") v = true
+      else if (v === "false") v = false
+      else if (v === "null") v = null
+      else if (v === "undefined") v = undefined
+
+      return {k: k, v: v}
+    },
+  },
+  cbartondock_vdf: {
+    mangle: true,
+    parser: (k, val) => {
+      if (val !== "" && !Number.isNaN(+val) && String(+val) === val)
+        val = +val
+      else if (val === "true") val = true
+      else if (val === "false") val = false
+      else if (val === "null") val = null
+      else if (val === "undefined") val = undefined
+
+      return {k: k, v: val}
+    },
+  },
 }
 
 dir_names.forEach(dir_name => {
