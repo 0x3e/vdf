@@ -74,10 +74,7 @@ export function parse(text, options) {
           continue
         }
         let k_v = {k: key, v: val}
-        if (
-          options.mangle === true &&
-          typeof options.coercer === "function"
-        )
+        if (options.mangle === true && typeof options.coercer === "function")
           k_v = options.coercer(key, val)
         else if (options.mangle === false)
           k_v = {k: String(key), v: String(val)}
