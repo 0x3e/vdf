@@ -1,5 +1,5 @@
 import Ajv from "ajv"
-import * as vdf from "../lib/index.cjs"
+import * as vdf from "../lib/index.mjs"
 
 //import {describe, eq, it, pDSEq} from "../test/test.mjs"
 
@@ -74,8 +74,8 @@ const json_schema = {
 const ajv = new Ajv({coerceTypes: true, removeAdditional: true})
 
 const validate = ajv.compile(json_schema)
-const modify = json_in => [json_in, validate(json_in)]
-const result = vdf.parse(string, {coercer: modify})
+const json_vdf = vdf.parse(string, {mangle: false})
+validate(json_vdf)
 
-console.log(result[0])
-console.log(result[1])
+console.log(json_vdf)
+console.log(validate.errors)

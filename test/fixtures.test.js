@@ -1,6 +1,6 @@
 import fs from "node:fs"
 import path from "node:path"
-import * as vdf from "../lib/index.cjs"
+import * as vdf from "../lib/index.mjs"
 import {describe, eq, it, pDSEq} from "../test/test.mjs"
 
 const fix_dir = "fixtures"
@@ -8,10 +8,10 @@ const dir_names = [
   "node_steam_vdf",
   "cbartondock_vdf",
   "little_better",
-  "string_only",
+  "strings",
 ]
 const options = {
-  strings: {coercer: strings => strings},
+  strings: {mangle: false},
   node_steam_vdf: {},
   little_better: {
     mangle: true,
